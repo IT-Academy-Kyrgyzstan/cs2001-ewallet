@@ -1,11 +1,11 @@
 ---
 name: Chore
-about: Шаблон для технической таски
+about: New chore task template
 title: ''
 labels: chore
 assignees: ''
 
 ---
 
-**What**
-[что нужно сделать]
+**Description**
+<!--- описание задачи, также любая доп. информация --->

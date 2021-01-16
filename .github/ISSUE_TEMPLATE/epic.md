@@ -1,10 +1,11 @@
 ---
 name: Epic
-about: Шаблон для эпика
+about: New epic template
 title: ''
 labels: epic
 assignees: ''
 
 ---
 
-**Общее описание фичи продукта**
+**Description**
+<!--- общее описание эпика с т.з. продукта --->

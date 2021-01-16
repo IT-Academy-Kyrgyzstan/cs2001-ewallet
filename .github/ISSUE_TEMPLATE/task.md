@@ -1,19 +1,13 @@
 ---
 name: Task
-about: Шаблон для таски
+about: New feature task template
 title: ''
 labels: task
 assignees: ''
 
 ---
 
-**Story** [номер стори]
+**Story** #<!--- номер стори --->
 
-**What**
-[что нужно сделать]
-
-**Why**
-[зачем это нужно]
-
-**Acceptance Criteria**
-[критерии готовности]
+**Description**
+<!--- описание задачи и любая другая доп. информация --->
