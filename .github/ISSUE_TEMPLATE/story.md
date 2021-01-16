@@ -1,8 +1,8 @@
 ---
 name: Story
 about: New user story template
-title: ''
-labels: story
+title: "[EST. ##]"
+labels: ''
 assignees: ''
 
 ---

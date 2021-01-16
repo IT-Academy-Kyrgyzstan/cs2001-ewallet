@@ -2,7 +2,7 @@
 name: Bug report
 about: New bug report template
 title: ''
-labels: bug
+labels: ''
 assignees: ''
 
 ---
