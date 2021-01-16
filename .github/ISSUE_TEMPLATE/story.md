@@ -2,7 +2,7 @@
 name: Story
 about: New user story template
 title: "[EST. ##]"
-labels: ''
+labels: type:story
 assignees: ''
 
 ---

@@ -2,7 +2,7 @@
 name: Epic
 about: New epic template
 title: ''
-labels: ''
+labels: type:epic
 assignees: ''
 
 ---

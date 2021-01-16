@@ -2,7 +2,7 @@
 name: Chore
 about: New chore task template
 title: ''
-labels: ''
+labels: type:chore
 assignees: ''
 
 ---

@@ -2,7 +2,7 @@
 name: Task
 about: New feature task template
 title: ''
-labels: ''
+labels: to estimate, type:task
 assignees: ''
 
 ---
