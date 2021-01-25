@@ -6,6 +6,7 @@ namespace DataAccess
     public class EwalletContext : DbContext
     {
         private readonly string _connectionString;
+        public DbSet<CardAccount> CardAccounts { get; set; }
         
         public EwalletContext(string connectionString)
         {
