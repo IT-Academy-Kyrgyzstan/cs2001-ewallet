@@ -7,5 +7,5 @@ CREATE TABLE Users
 	LastName nvarchar(50) NOT NULL, 
 	Password nvarchar(50) CHECK (DATALENGTH([Password]) >= (6)) NOT NULL,
 	Login nvarchar(20) UNIQUE NOT NULL, 
-	Created Date  NOT NULL	
+	Created Date  NOT NULL CONSTRAINT DF_created_date DEFAULT GETDATE()	
 );
