@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccess
@@ -7,37 +6,35 @@ namespace DataAccess
     public class CardAccount
     {
         [Key]
-        [Column(TypeName = "int")]
         public int Id { get; set; }
 
-        [Column(TypeName = "nvarchar(6)")]
+        [Display(Name = "Номер Карты")]
         [StringLength(6, MinimumLength = 6)]
         public string CardNumber { get; set; }
 
-        [Column(TypeName = "nvarchar(20)")]
+        [Display(Name = "Название карты")]
         [StringLength(20, MinimumLength = 4)]
         public string CardName { get; set; }
+        
+        [Display(Name = "Id пользователя")]
+        public int UserId { get; set; }
 
-        //[Column(TypeName = "int")]
-        //public int UserId { get; set; }
-
-        [Column(TypeName = "numeric")]
+        [Display(Name = "Баланс карты")]
         public decimal CardBalance { get; set; }
 
-        [Column(TypeName = "DateTime")]
-        public DateTime CreatedDate { get; set; }
+        [Display(Name = "Дата создания")]
+        public string CreatedDate { get; set; }
 
-        [Column(TypeName = "DateTime.Now")]
-        public DateTime EndDate { get; set; }
+        [Display(Name = "Дата окончания")]
+        public string EndDate { get; set; }
 
-        
+        [Display(Name = "Статус")]
+        public int StatusId { get; set; }
+
+        [ForeignKey("StatusId")]
         public Statuses Status { get; set; }
-        public enum Statuses
-        {
-            worked = 0,
-            blocked = 1,
-            frozen = 2           
-        }
-        //public User User { get; set; }
+
+        [ForeignKey("UserId")]
+        public User User { get; set; }
     }
 }
