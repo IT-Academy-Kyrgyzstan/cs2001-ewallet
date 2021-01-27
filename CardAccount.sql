@@ -22,7 +22,7 @@ CREATE TABLE CardAccounts
 	UserId int NULL,
 	BardBalance Numeric(12,2) NULL,
 	CreatedDate Date  NOT NULL CONSTRAINT DF_created_date DEFAULT GETDATE(),
-	EndDate date NULL,
+	EndDate date NOT NULL,
 	StatusId int NOT NULL,
 	CONSTRAINT FK_CardAccounts_To_Users FOREIGN KEY (UserId)  REFERENCES Users (Id),
 	CONSTRAINT FK_CardAccounts_To_Statuses FOREIGN KEY (StatusId)  REFERENCES Statuses (Id)
