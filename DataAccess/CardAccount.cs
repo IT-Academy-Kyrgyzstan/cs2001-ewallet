@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccess
@@ -18,9 +19,9 @@ namespace DataAccess
 
         public decimal CardBalance { get; set; }
 
-        public string CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
-        public string EndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         public int StatusId { get; set; }
 

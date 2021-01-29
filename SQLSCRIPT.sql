@@ -30,7 +30,7 @@ CREATE TABLE CardAccounts
 	CardNumber nvarchar(6)CHECK (DATALENGTH(CardNumber) = (6)) NOT NULL,
 	CardName nvarchar(20) NOT NULL, 
 	UserId int NULL,
-	BardBalance Numeric(12,2) NULL,
+	CardBalance Numeric(12,2) NULL,
 	CreatedDate Date  NOT NULL CONSTRAINT DF_created_date DEFAULT GETDATE(),
 	EndDate date NOT NULL,
 	StatusId int NOT NULL,
