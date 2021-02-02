@@ -7,7 +7,10 @@ namespace DataAccess
     {
         private readonly string _connectionString;
         
-        public DbSet<CardAccount> CardAccounts { get; set; }        
+        public DbSet<CardAccount> CardAccounts { get; set; }
+        
+        public DbSet<User> Users { get; set; }
+
         public EwalletContext(string connectionString)
         {
             _connectionString = connectionString;
