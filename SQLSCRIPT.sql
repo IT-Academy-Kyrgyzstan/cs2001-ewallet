@@ -29,7 +29,7 @@ CREATE TABLE CardAccounts
 	Id int PRIMARY KEY IDENTITY NOT NULL,
 	CardNumber nvarchar(6)CHECK (DATALENGTH(CardNumber) = (6)) NOT NULL,
 	CardName nvarchar(20) NOT NULL, 
-	UserId int NULL,
+	UserId int NOT NULL,
 	CardBalance Numeric(12,2) NULL,
 	CreatedDate Date  NOT NULL CONSTRAINT DF_created_date DEFAULT GETDATE(),
 	EndDate date NOT NULL,
