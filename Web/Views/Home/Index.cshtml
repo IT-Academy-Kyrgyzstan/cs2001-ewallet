@@ -1,8 +1,22 @@
-﻿@{
+﻿@using DataAccess
+@model CardAccount
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p style="font-size: xx-large"> <b>Welcome to eWallet</b></p>
 </div>
+
+ @if (ViewData.ModelState.IsValid)
+ {
+     <h2>Cards and bills</h2> 
+     
+     <div style="border: groove; border-color: antiquewhite; background-color: antiquewhite;"> 
+         <p style="font-size: x-large;"> Card name: @Model.CardName</p>
+         <p style="font-size: x-large"> Card model: @Model.CardNumber</p>
+         <p style="font-size: x-large"> Balance: @Model.CardBalance KGS </p>
+         <img width="350" height="100" src="https://www.hlb.com.my/content/dam/hlb/my/images/campaigns/holiyay-sept/img-card-list.png" />
+     </div>
+ }

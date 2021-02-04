@@ -22,11 +22,9 @@ namespace DataAccess
         public DateTime CreatedDate { get; set; }
 
         public DateTime EndDate { get; set; }
-
-        public int StatusId { get; set; }
-
+        
         [ForeignKey("StatusId")]
-        public Statuses Status { get; set; }
+        public int StatusId { get; set; }
 
         [ForeignKey("UserId")]
         public User User { get; set; }
