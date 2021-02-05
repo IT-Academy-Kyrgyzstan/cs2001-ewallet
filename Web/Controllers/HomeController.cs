@@ -30,8 +30,8 @@ namespace Web.Controllers
             if (ModelState.IsValid)
             {
                 var user = await db.Users.FirstOrDefaultAsync(u => u.Login == "tilek.kasymov" /* User.Identity.Name */);
-                var userBills = await db.CardAccounts.FirstOrDefaultAsync(u => u.UserId == user.Id);
-
+                var userBills = db.CardAccounts.Where(u => u.UserId == user.Id);
+                
                 return View(userBills);
             }
             return View();
