@@ -1,23 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace DataAccess
 {
-    public class EwalletContext : DbContext
+    public class EwalletContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         private readonly string _connectionString;
         
         public DbSet<CardAccount> CardAccounts { get; set; }
-        
-        public DbSet<User> Users { get; set; }
 
-        public EwalletContext(string connectionString)
+        public EwalletContext(DbContextOptions<EwalletContext> options) : base(options)
         {
-            _connectionString = connectionString;
-            Database.EnsureCreated();
         }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder builder)
-            => builder.UseSqlServer(_connectionString);
     }
 }
