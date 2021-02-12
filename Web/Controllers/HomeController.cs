@@ -1,5 +1,7 @@
 ﻿using DataAccess;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -22,9 +24,13 @@ namespace Web.Controllers
             db = new EwalletContext(configuration["ConnectionString"]);
         }
 
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var user = await db.Users.FirstOrDefaultAsync(u => u.Login == "tilek.kasymov"  /* User.Identity.Name */);
+            var userBills = await db.CardAccounts.Where(u => u.UserId == user.Id).ToArrayAsync();
+
+            return View(userBills);
         }
 
         public IActionResult Privacy()

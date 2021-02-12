@@ -25,8 +25,8 @@ namespace DataAccess
 
         public int StatusId { get; set; }
 
-        [ForeignKey("StatusId")]
-        public Statuses Status { get; set; }
+        //[ForeignKey("StatusId")]
+        //public Statuses Status { get; set; }
 
         [ForeignKey("UserId")]
         public User User { get; set; }

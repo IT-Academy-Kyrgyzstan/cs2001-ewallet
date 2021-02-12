@@ -1,8 +1,26 @@
-﻿@{
+﻿@using DataAccess
+@model CardAccount[]
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p style="font-size: xx-large"> <b>Welcome to eWallet</b></p>
 </div>
+
+
+<h2 class="text-center"> Cards and bills:</h2>
+<p>Total cards: @Model.Length</p>
+
+@for (int i = 0; i < @Model.Length; i++)
+{
+    <h3>Card №@(i+1) </h3> 
+    
+    <div style="border: groove; border-color: antiquewhite; background-color: antiquewhite;">
+        <p style="font-size: xx-large"> Card name: @Model[i].CardName</p>
+        <p style="font-size: xx-large"> Card number: @Model[i].CardNumber</p>
+        <p style="font-size: xx-large"> Balance: @Model[i].CardBalance KGS </p>
+    </div>
+}
+

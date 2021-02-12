@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataAccess
 {
@@ -18,7 +19,7 @@ namespace DataAccess
 
         [StringLength(20, MinimumLength = 3)]
         public string Login { get; set; }
-               
-        public string Created { get; set; }
+        
+        public DateTime Created { get; set; }
     }
 }
