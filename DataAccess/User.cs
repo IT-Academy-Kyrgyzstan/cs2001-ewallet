@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,7 +11,7 @@ namespace DataAccess
 
         [MaxLength(50)]
         public string LastName { get; set; }
-               
+
         public DateTime Created { get; set; }
     }
 }
