@@ -7,7 +7,7 @@ CREATE TABLE Users
 	LastName nvarchar(50) NOT NULL, 
 	Password nvarchar(50) CHECK (DATALENGTH([Password]) >= (6)) NOT NULL,
 	Login nvarchar(20) UNIQUE NOT NULL, 
-	Created Date  NOT NULL CONSTRAINT DF_created_date DEFAULT GETDATE()	
+	Created Date  NOT NULL CONSTRAINT DF_Users_created_date DEFAULT GETDATE()	
 );
 GO
 
@@ -31,7 +31,7 @@ CREATE TABLE CardAccounts
 	CardName nvarchar(20) NOT NULL, 
 	UserId int NOT NULL,
 	CardBalance Numeric(12,2) NULL,
-	CreatedDate Date  NOT NULL CONSTRAINT DF_created_date DEFAULT GETDATE(),
+	CreatedDate Date  NOT NULL CONSTRAINT DF_CardAccounts_created_date DEFAULT GETDATE(),
 	EndDate date NOT NULL,
 	StatusId int NOT NULL,
 	CONSTRAINT FK_CardAccounts_To_Users FOREIGN KEY (UserId)  REFERENCES Users (Id),
