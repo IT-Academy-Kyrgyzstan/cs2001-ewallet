@@ -16,17 +16,19 @@ namespace Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly EwalletContext _db;
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
+        public HomeController(ILogger<HomeController> logger, EwalletContext db)
         {
             _logger = logger;
+            _db = db;
         }
 
 
         public async Task<IActionResult> Index()
         {
-            var user = await db.Users.FirstOrDefaultAsync(u => u.Login == "tilek.kasymov"  /* User.Identity.Name */);
-            var userBills = await db.CardAccounts.Where(u => u.UserId == user.Id).ToArrayAsync();
+            var user = await _db.Users.FirstOrDefaultAsync(u => u.UserName == "tilek.kasymov"  /* User.Identity.Name */);
+            var userBills = await _db.CardAccounts.Where(u => u.UserId == user.Id).ToArrayAsync();
 
             return View(userBills);
         }
