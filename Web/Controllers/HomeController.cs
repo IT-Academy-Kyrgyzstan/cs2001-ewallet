@@ -8,11 +8,13 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Web.Models;
 
 namespace Web.Controllers
 {
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -24,13 +26,20 @@ namespace Web.Controllers
             _db = db;
         }
 
-
+        [Authorize]
         public async Task<IActionResult> Index()
-        {
-            var user = await _db.Users.FirstOrDefaultAsync(u => u.UserName == "tilek.kasymov"  /* User.Identity.Name */);
-            var userBills = await _db.CardAccounts.Where(u => u.UserId == user.Id).ToArrayAsync();
+        {            
+            var userBills = await _db.CardAccounts.Where(u => u.UserId == GetUserId()).ToArrayAsync();
 
             return View(userBills);
+        }
+
+        protected int GetUserId()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = int.Parse(userId);
+
+            return result;
         }
 
         public IActionResult Privacy()
