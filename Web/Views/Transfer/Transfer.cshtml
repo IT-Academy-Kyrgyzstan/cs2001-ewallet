@@ -1,0 +1,52 @@
+﻿@using DataAccess
+@model CardAccountModel
+
+@{
+    ViewData["Title"] = "Transfer money";
+}
+
+<p class="text-center" style="color:white; background-color:darkred">Transfer money</p>
+
+<form asp-action="transfer" asp-controller="transfer" asp-anti-forgery="true">
+    <div>
+        @foreach (var item in ViewBag.Card)
+        {
+            <p class="p">card number: @item.CardNumber (balance: @item.CardBalance)</p>
+        }
+
+        <p style="background-color:darkgrey; color:white">Where to withdraw money</p>
+
+        <select asp-for="SelectCardNumber">
+            @foreach (var item in ViewBag.Card)
+            {
+                <option class="text-center">@item.CardNumber</option>
+            }
+        </select>
+
+        <p style="background-color:darkgray; color:white">Where to transfer</p>
+
+        <div>
+            <input asp-for="TransferCardNumber" placeholder="Transfer card number" />
+            <span asp-validation-for="TransferCardNumber" />
+        </div>
+
+        <div>
+            <input asp-for="TransferBalance" placeholder="Transfer balance" /> <d1>KGS</d1>
+            <span asp-validation-for="TransferBalance" />
+        </div>
+
+        <div>
+            <button style="background-color:darkred; color:white">Transfer</button>
+        </div>
+
+        <div class="text-center" ; style="color: red">
+            @Html.ValidationMessage("ErrorMessage_Id")
+        </div>
+    </div>
+</form>
+
+<style>
+    p {
+        font-size: 21px;    
+    }
+</style>
