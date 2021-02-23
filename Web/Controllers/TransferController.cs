@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,7 +12,6 @@ using Web.Models;
 
 namespace Web.Controllers
 {
-    [Authorize]
     public class TransferController : BaseController
     {
         public TransferController(ILogger<HomeController> logger, EwalletContext db) : base(logger, db)
@@ -20,37 +20,35 @@ namespace Web.Controllers
 
         public IActionResult Transfer()
         {
-            var userCard = db.CardAccounts.Where(u => u.UserId == GetUserId());
-            ViewBag.Card = userCard;
-            
-            return View();
+            var userCard = db.CardAccounts.Where(u => u.UserId == UserId);
+
+            return View(userCard);
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> Transfer(CardAccountModel cardAccountmodel)
+        public async Task<IActionResult> Transfer(string selectCardNumber, string transferCardNumber, decimal transferBalance)
         {
-            var userCard = await db.CardAccounts.FirstOrDefaultAsync(u => u.CardNumber == cardAccountmodel.SelectCardNumber);
-            var transferCard = await db.CardAccounts.FirstOrDefaultAsync(u => u.CardNumber == cardAccountmodel.TransferCardNumber);
+            var userCardView = db.CardAccounts.Where(u => u.UserId == UserId);
 
-            var userCardForViewBag = db.CardAccounts.Where(u => u.UserId == GetUserId());
-            ViewBag.Card = userCardForViewBag;
+            var userCard = await userCardView.FirstOrDefaultAsync(u => u.CardNumber == selectCardNumber);
+            var transferCard = await db.CardAccounts.FirstOrDefaultAsync(u => u.CardNumber == transferCardNumber);
 
-            if (transferCard != null)
+            if (userCard != null && transferCard != null)
             {
-                if (userCard.CardBalance >= cardAccountmodel.TransferBalance && cardAccountmodel.TransferBalance > 0)
+                if (userCard.CardBalance >= transferBalance && transferBalance > 0)
                 {
-                    userCard.CardBalance = userCard.CardBalance - cardAccountmodel.TransferBalance;
-                    transferCard.CardBalance = transferCard.CardBalance + cardAccountmodel.TransferBalance;
+                    userCard.CardBalance = userCard.CardBalance - transferBalance;
+                    transferCard.CardBalance = transferCard.CardBalance + transferBalance;
 
                     await db.SaveChangesAsync();
 
-                    return View();
+                    return View(userCardView);
                 }
                 ModelState.AddModelError("ErrorMessage_Id", "Insufficient funds, top up balance");
-                return View();
+                return View(userCardView);
             }
             ModelState.AddModelError("ErrorMessage_Id", "Сard number not found");
-            return View();
+            return View(userCardView);
         }
     }
 }

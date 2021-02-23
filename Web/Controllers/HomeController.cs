@@ -20,11 +20,9 @@ namespace Web.Controllers
         public HomeController(ILogger<HomeController> logger, EwalletContext db) : base(logger,db)
         { }
 
-
-        [Authorize]
         public async Task<IActionResult> Index()
         {
-            var userBills = await db.CardAccounts.Where(u => u.UserId == GetUserId()).ToArrayAsync();
+            var userBills = await db.CardAccounts.Where(u => u.UserId == UserId).ToArrayAsync();
             
             return View(userBills);
         }
