@@ -28,6 +28,11 @@
         <div>
             <input asp-for="TransferCardNumber" placeholder="Transfer card number" />
             <span asp-validation-for="TransferCardNumber" />
+            <input type="button" id="btnCardNumber" value="Check" onclick="checkIfCardExists()" />
+        </div>
+
+        <div id="divFioContent">
+            <span id="spanValidationText"></span>
         </div>
 
         <div>
@@ -50,3 +55,34 @@
         font-size: 21px;    
     }
 </style>
+
+
+<script>
+
+    function checkIfCardExists() {
+
+
+        var element = document.getElementsByName('TransferCardNumber');
+        var cardNumber = element[0].value;
+
+        var url = '/Transfer/CheckCardNumber';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {
+                cardNumber: cardNumber
+            },
+            dataType: 'json',
+            success: function (fio) {
+
+                $('#spanValidationText').text(fio);
+            },
+            error: function (error) {
+                $('#spanValidationText').text(error.responseText);
+            }
+        });
+
+    }
+
+</script>
