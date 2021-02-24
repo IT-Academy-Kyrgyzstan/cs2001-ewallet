@@ -18,11 +18,11 @@ namespace Web.Controllers
         {
         }
 
-        public IActionResult Transfer()
+        public async Task<IActionResult> Transfer()
         {
-            var userCard = db.CardAccounts.Where(u => u.UserId == UserId);
+            var userCards = await db.CardAccounts.Where(u => u.UserId == UserId).ToArrayAsync();
 
-            return View(userCard);
+            return View(userCards);
         }
 
         [HttpPost]
@@ -33,21 +33,25 @@ namespace Web.Controllers
             var userCard = await userCardView.FirstOrDefaultAsync(u => u.CardNumber == selectCardNumber);
             var transferCard = await db.CardAccounts.FirstOrDefaultAsync(u => u.CardNumber == transferCardNumber);
 
-            if (userCard != null && transferCard != null)
+            if (userCard == null || transferCard == null)
             {
-                if (userCard.CardBalance >= transferBalance && transferBalance > 0)
-                {
-                    userCard.CardBalance = userCard.CardBalance - transferBalance;
-                    transferCard.CardBalance = transferCard.CardBalance + transferBalance;
+                ModelState.AddModelError("ErrorMessage_Id", "Сard number not found");
 
-                    await db.SaveChangesAsync();
-
-                    return View(userCardView);
-                }
-                ModelState.AddModelError("ErrorMessage_Id", "Insufficient funds, top up balance");
                 return View(userCardView);
             }
-            ModelState.AddModelError("ErrorMessage_Id", "Сard number not found");
+
+            if (userCard.CardBalance < transferBalance || transferBalance <= 0)
+            {
+                ModelState.AddModelError("ErrorMessage_Id", "Insufficient funds, top up balance");
+
+                return View(userCardView);
+            }
+
+            userCard.CardBalance = userCard.CardBalance - transferBalance;
+            transferCard.CardBalance = transferCard.CardBalance + transferBalance;
+
+            await db.SaveChangesAsync();
+
             return View(userCardView);
         }
     }

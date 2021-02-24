@@ -5,16 +5,18 @@
     ViewData["Title"] = "Transfer money";
 }
 
-<p class="text-center" style="color:white; background-color:darkred">Transfer money</p>
+<p class="text-center transfer__label transfer__label--info">Transfer money</p>
 
 <form asp-action="transfer" asp-controller="transfers" asp-anti-forgery="true">
     <div>
-        @foreach (var item in Model)
-        {
-            <p class="p">Card number: @item.CardNumber (balance: @item.CardBalance)</p>
-        }
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li class="p transfer__label">Card number: @item.CardNumber (balance: @item.CardBalance)</li>
+            }
+        </ul>
 
-        <p style="background-color:darkgrey; color:white">Where to withdraw money</p>
+        <p class="transfer__label transfer__label--info">Where to withdraw money</p>
 
         <select name="selectCardNumber">
             <option>Choose your card</option>
@@ -25,7 +27,7 @@
             }
         </select>
 
-        <p style="background-color:darkgray; color:white">Where to transfer</p>
+        <p class="transfer__label transfer__label--info">Where to transfer</p>
 
         <div>
             <input name="transferCardNumber" placeholder="Transfer card number" />
@@ -36,18 +38,32 @@
         </div>
 
         <div>
-            <button style="background-color:darkred; color:white">Transfer</button>
+            <button class="transfer__submit">Transfer</button>
         </div>
 
-        <div class="text-center" ; style="color: red">
+        <div class="text-center transfer__label--error">
             @Html.ValidationMessage("ErrorMessage_Id")
         </div>
     </div>
 </form>
 
 <style>
-    p {
-        font-size: 21px;    
+    .transfer__label {
+        font-size: 21px;
+    }
+
+    .transfer__label--info {
+        background-color: darkgray;
+        color: white
+    }
+
+    .transfer__label--error {
+        color: red;
+    }
+
+    .transfer__submit {
+        background-color: darkred;
+        color: white
     }
 </style>
 
