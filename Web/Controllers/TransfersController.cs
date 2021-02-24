@@ -12,9 +12,9 @@ using Web.Models;
 
 namespace Web.Controllers
 {
-    public class TransferController : BaseController
+    public class TransfersController : BaseController
     {
-        public TransferController(ILogger<HomeController> logger, EwalletContext db) : base(logger, db)
+        public TransfersController(ILogger<HomeController> logger, EwalletContext db) : base(logger, db)
         {
         }
 
