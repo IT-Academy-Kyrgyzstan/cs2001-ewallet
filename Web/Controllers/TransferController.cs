@@ -56,15 +56,15 @@ namespace Web.Controllers
             return View();
         }
 
-        [Produces("application/json")]
-        public async Task<IActionResult> CheckCardNumber(string cardNumber)
+        //[Produces("application/json")]
+        public async Task<IActionResult> CheckCardNumber([FromQuery] string cardNumber)
         {
             var cardAccount = await db.CardAccounts.FirstOrDefaultAsync(c => c.CardNumber == cardNumber);
     
             if (cardAccount != null && cardAccount.StatusId == (int)Statuses.worked)
             {
                 var user = await db.Users.FindAsync(cardAccount.UserId);
-                return Ok($"{user.LastName} {user.FirstName}");
+                return Ok(new { user.UserName });
             }
             else
             {

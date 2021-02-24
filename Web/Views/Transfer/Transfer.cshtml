@@ -58,31 +58,26 @@
 
 
 <script>
+    async function checkIfCardExists() {
+        const element = document.getElementsByName('TransferCardNumber');
+        const cardNumber = element[0].value;
+        const url = '@Url.Action("CheckCardNumber")';
 
-    function checkIfCardExists() {
+        try {
+            const response = await fetch(`${url}?cardNumber=${cardNumber}`)
 
+            if (response.ok) {
+                const user = await response.json()
 
-        var element = document.getElementsByName('TransferCardNumber');
-        var cardNumber = element[0].value;
+                $('#spanValidationText').text(user.userName);
+            } else {
+                const error = await response.text()
 
-        var url = '/Transfer/CheckCardNumber';
-
-        $.ajax({
-            type: 'POST',
-            url: url,
-            data: {
-                cardNumber: cardNumber
-            },
-            dataType: 'json',
-            success: function (fio) {
-
-                $('#spanValidationText').text(fio);
-            },
-            error: function (error) {
-                $('#spanValidationText').text(error.responseText);
+                $('#spanValidationText').text(error);
             }
-        });
-
+        } catch {
+            alert("Network error")
+        }
     }
 
 </script>
