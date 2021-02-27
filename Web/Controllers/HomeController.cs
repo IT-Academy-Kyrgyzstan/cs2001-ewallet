@@ -15,31 +15,16 @@ using Web.Models;
 namespace Web.Controllers
 {
 
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly EwalletContext _db;
+        public HomeController(ILogger<HomeController> logger, EwalletContext db) : base(logger,db)
+        { }
 
-        public HomeController(ILogger<HomeController> logger, EwalletContext db)
-        {
-            _logger = logger;
-            _db = db;
-        }
-
-        [Authorize]
         public async Task<IActionResult> Index()
-        {            
-            var userBills = await _db.CardAccounts.Where(u => u.UserId == GetUserId()).ToArrayAsync();
-
-            return View(userBills);
-        }
-
-        protected int GetUserId()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var result = int.Parse(userId);
-
-            return result;
+            var userBills = await db.CardAccounts.Where(u => u.UserId == UserId).ToArrayAsync();
+            
+            return View(userBills);
         }
 
         public IActionResult Privacy()

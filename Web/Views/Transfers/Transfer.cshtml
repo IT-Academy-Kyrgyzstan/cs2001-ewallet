@@ -1,0 +1,69 @@
+﻿@using DataAccess
+@model IEnumerable<CardAccount>
+
+@{
+    ViewData["Title"] = "Transfer money";
+}
+
+<p class="text-center transfer__label transfer__label--info">Transfer money</p>
+
+<form asp-action="transfer" asp-controller="transfers" asp-anti-forgery="true">
+    <div>
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li class="p transfer__label">Card number: @item.CardNumber (balance: @item.CardBalance)</li>
+            }
+        </ul>
+
+        <p class="transfer__label transfer__label--info">Where to withdraw money</p>
+
+        <select name="selectCardNumber">
+            <option>Choose your card</option>
+           
+            @foreach (var item in Model)
+            {
+                <option>@item.CardNumber</option>
+            }
+        </select>
+
+        <p class="transfer__label transfer__label--info">Where to transfer</p>
+
+        <div>
+            <input name="transferCardNumber" placeholder="Transfer card number" />
+        </div>
+
+        <div>
+            <input name="transferBalance" placeholder="Transfer balance" /> <d1>KGS</d1>
+        </div>
+
+        <div>
+            <button class="transfer__submit">Transfer</button>
+        </div>
+
+        <div class="text-center transfer__label--error">
+            @Html.ValidationMessage("ErrorMessage_Id")
+        </div>
+    </div>
+</form>
+
+<style>
+    .transfer__label {
+        font-size: 21px;
+    }
+
+    .transfer__label--info {
+        background-color: darkgray;
+        color: white
+    }
+
+    .transfer__label--error {
+        color: red;
+    }
+
+    .transfer__submit {
+        background-color: darkred;
+        color: white
+    }
+</style>
+
