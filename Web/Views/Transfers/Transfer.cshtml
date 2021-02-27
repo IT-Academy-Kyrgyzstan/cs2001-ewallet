@@ -30,11 +30,9 @@
         <p class="transfer__label transfer__label--info">Where to transfer</p>
 
         <div>
-            <input name="transferCardNumber" placeholder="Transfer card number" />
-            <input type="button" id="btnCardNumber" value="Check" onclick="checkIfCardExists()" />
-            <p id="Validation">
-                
-            </p>
+            <input id="transferCardNumber" name="transferCardNumber" placeholder="Transfer card number" />
+            <button id="checkCardNumber" type="button">Check</button>
+            <p id="cardNumberValidation"></p>
         </div>
 
         <div>
@@ -69,30 +67,62 @@
         background-color: darkred;
         color: white
     }
+
+    .transfer__cardnum-validation--ok {
+        color: green;
+    }
+
+    .transfer__cardnum-validation--error {
+        color: red;
+    }
 </style>
+
 <script>
-    async function checkIfCardExists() {
-        const element = document.getElementsByName('transferCardNumber');
-        const cardNumber = element[0].value;
-        const url = '@Url.Action("CheckCardNumber")';
+    async function fetchCardAccount(cardNumber) {
+        const url = '@Url.Action("CheckCardNumber")'
+
         try {
             const response = await fetch(`${url}?cardNumber=${cardNumber}`)
-            if (response.ok) {
-                const data = await response.json()
 
-                if ((data.firstName || data.lastName) && data.statusId === 1) {
-                    $('#Validation').text(`${data.firstName} ${data.lastName}`);
-                } else if (data.userName && data.statusId === 1) {
-                    $('#Validation').text(`${data.userName}`);
-                } else if (data.statusId !==1) {
-                    $('#Validation').text('Card is blocked or frozen');
-                }
-            } else {
+            if (!response.ok) {
                 const error = await response.text()
-                $('#Validation').text(error);
+
+                return [false, error]
             }
+
+            const data = await response.json()
+
+            const valid = data.statusId === @((int) Statuses.worked)
+
+            const message = valid
+                ? data.firstName || data.lastName
+                    ? `${data.firstName} ${data.lastName}`
+                    : data.userName || 'Account is found'
+                : 'Card is blocked or frozen'
+
+            return [valid, message]
         } catch {
-            alert("Network error")
+            return [false, 'Network error']
         }
     }
+
+    function setValidationMessage(valid, message) {
+        const validationNode = document.querySelector('#cardNumberValidation')
+
+        validationNode.className = valid
+            ? 'transfer__cardnum-validation--ok'
+            : 'transfer__cardnum-validation--error'
+
+        validationNode.textContent = message
+    }
+
+    const checkButton = document.querySelector("#checkCardNumber")
+
+    checkButton.addEventListener('click', async function () {
+        const cardNumber = document.querySelector('#transferCardNumber').value
+
+        const [valid, message] = await fetchCardAccount(cardNumber)
+
+        setValidationMessage(valid, message)
+    })
 </script>
