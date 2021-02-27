@@ -1,5 +1,6 @@
 ﻿@using DataAccess
-@model IEnumerable<CardAccount>
+@model TransferViewModel
+
 
 @{
     ViewData["Title"] = "Transfer money";
@@ -10,7 +11,7 @@
 <form asp-action="transfer" asp-controller="transfers" asp-anti-forgery="true">
     <div>
         <ul>
-            @foreach (var item in Model)
+            @foreach (var item in Model.CardAccounts)
             {
                 <li class="p transfer__label">Card number: @item.CardNumber (balance: @item.CardBalance)</li>
             }
@@ -18,10 +19,10 @@
 
         <p class="transfer__label transfer__label--info">Where to withdraw money</p>
 
-        <select name="selectCardNumber">
+        <select asp-for="SelectCardNumber">
             <option>Choose your card</option>
-           
-            @foreach (var item in Model)
+
+            @foreach (var item in Model.CardAccounts)
             {
                 <option>@item.CardNumber</option>
             }
@@ -30,17 +31,22 @@
         <p class="transfer__label transfer__label--info">Where to transfer</p>
 
         <div>
-            <input name="transferCardNumber" placeholder="Transfer card number" />
+            <input asp-for="TransferCardNumber" placeholder="Transfer card number" />
         </div>
 
         <div>
-            <input name="transferBalance" placeholder="Transfer balance" /> <d1>KGS</d1>
+            <input asp-for="TransferBalance" placeholder="Transfer balance" /> <d1>KGS</d1>
         </div>
 
         <div>
             <button class="transfer__submit">Transfer</button>
         </div>
-
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["SuccessMessage"] 
+            </div>
+        }
         <div class="text-center transfer__label--error">
             @Html.ValidationMessage("ErrorMessage_Id")
         </div>
