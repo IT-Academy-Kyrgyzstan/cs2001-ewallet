@@ -20,7 +20,7 @@
 
         <select name="selectCardNumber">
             <option>Choose your card</option>
-           
+
             @foreach (var item in Model)
             {
                 <option>@item.CardNumber</option>
@@ -31,6 +31,10 @@
 
         <div>
             <input name="transferCardNumber" placeholder="Transfer card number" />
+            <input type="button" id="btnCardNumber" value="Check" onclick="checkIfCardExists()" />
+            <p id="Validation">
+                
+            </p>
         </div>
 
         <div>
@@ -66,4 +70,29 @@
         color: white
     }
 </style>
+<script>
+    async function checkIfCardExists() {
+        const element = document.getElementsByName('transferCardNumber');
+        const cardNumber = element[0].value;
+        const url = '@Url.Action("CheckCardNumber")';
+        try {
+            const response = await fetch(`${url}?cardNumber=${cardNumber}`)
+            if (response.ok) {
+                const data = await response.json()
 
+                if ((data.firstName || data.lastName) && data.statusId === 1) {
+                    $('#Validation').text(`${data.firstName} ${data.lastName}`);
+                } else if (data.userName && data.statusId === 1) {
+                    $('#Validation').text(`${data.userName}`);
+                } else if (data.statusId !==1) {
+                    $('#Validation').text('Card is blocked or frozen');
+                }
+            } else {
+                const error = await response.text()
+                $('#Validation').text(error);
+            }
+        } catch {
+            alert("Network error")
+        }
+    }
+</script>

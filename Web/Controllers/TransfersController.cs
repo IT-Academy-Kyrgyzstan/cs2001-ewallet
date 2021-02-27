@@ -54,5 +54,20 @@ namespace Web.Controllers
 
             return View(userCardView);
         }
+        public async Task<IActionResult> CheckCardNumber([FromQuery] string cardNumber)
+        {
+            var cardAccount = await db.CardAccounts.FirstOrDefaultAsync(c => c.CardNumber == cardNumber);
+
+            if (cardAccount != null)
+            {
+                var user = await db.Users.FindAsync(cardAccount.UserId);
+                return Ok(new { user.UserName, user.FirstName, user.LastName, cardAccount.StatusId });
+            }
+            else
+            {
+                return NotFound("Account was not found");
+            }
+        }
     }
+    
 }
