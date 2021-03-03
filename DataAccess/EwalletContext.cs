@@ -8,6 +8,7 @@ namespace DataAccess
     public class EwalletContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public DbSet<CardAccount> CardAccounts { get; set; }
+        public DbSet<CardApplication> CardApplications { get; set; }
 
         public EwalletContext(DbContextOptions<EwalletContext> options) : base(options)
         {

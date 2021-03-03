@@ -37,5 +37,34 @@ namespace Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        
+        public IActionResult FormApp()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FormApp(FormAppViewModels model)
+        {
+            if (ModelState.IsValid) 
+            {
+                var userLogin = User.Identity.Name;
+                var user = await db.Users.FirstOrDefaultAsync(x => x.UserName == userLogin);
+                var nameCard = $"{user.FirstName} + {user.LastName} + {model.CardView}";
+
+                db.CardApplications.Add(new DataAccess.CardApplication
+                {
+                    UserId = user.Id,
+                    CurruncyEnum = model.CurruncyEnum,
+                    CardView = model.CardView,
+                    Status = 2,
+                    CreatedDate = DateTime.Now
+
+                });
+                await db.SaveChangesAsync();
+            }
+                return View(model);        
+        }
+
     }
 }

@@ -1,0 +1,27 @@
+﻿@model Web.Models.FormAppViewModels
+
+@{
+    ViewData["Title"] = "Statement";
+}
+
+<div class="text-left">
+    <h1>Application for a payment card</h1>
+    <br />
+    <form asp-action="FormApp" asp-controller="HomeController" asp-anti-forgery="true">
+        <div class="form-group">
+            <div class="form-group">
+                <input asp-for="CurruncyEnum" placeholder="CurruncyEnum" />
+                <span asp-validation-for="CurruncyEnum" />
+            </div>
+            <div class="form-group">
+                <input asp-for="CardView" placeholder="CardView" />
+                <span asp-validation-for="CardView" />
+            </div>
+            
+            <div class="validation" asp-validation-summary="All"></div>
+            <div class="form-group">
+                <button>Send</button>
+            </div>
+        </div>
+    </form>
+</div>
