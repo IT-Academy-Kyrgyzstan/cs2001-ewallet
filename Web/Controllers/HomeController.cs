@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using DataAccess.Enum;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -48,20 +49,20 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid) 
             {
-                var userLogin = User.Identity.Name;
-                var user = await db.Users.FirstOrDefaultAsync(x => x.UserName == userLogin);
+                var user = await db.Users.FirstOrDefaultAsync(x => x.Id == UserId);
                 var nameCard = $"{user.FirstName} + {user.LastName} + {model.CardView}";
 
                 db.CardApplications.Add(new DataAccess.CardApplication
                 {
-                    UserId = user.Id,
-                    CurruncyEnum = model.CurruncyEnum,
+                    UserId = this.UserId,
+                    Сurruncy = model.Curruncy,
                     CardView = model.CardView,
-                    Status = 2,
+                    Status = StatusesEnum.Considering,
                     CreatedDate = DateTime.Now
 
                 });
                 await db.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
                 return View(model);        
         }
