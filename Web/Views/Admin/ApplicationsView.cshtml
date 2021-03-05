@@ -1,0 +1,14 @@
+﻿@using DataAccess
+@model IEnumerable<CardApplication>
+
+
+@{
+    ViewData["Title"] = "Applications for release";
+}
+<div id="Bacc">
+    @foreach (var item in Model)
+    {
+        <p>@item.Status </p>
+    }
+</div>
+
