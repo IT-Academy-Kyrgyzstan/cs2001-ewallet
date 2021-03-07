@@ -7,14 +7,7 @@
 
 <div class="text-center">
     <p style="font-size: xx-large"> <b>Welcome to eWallet</b></p>
-</div>
-
-@if (Model.Length == 0)
-{
-    <p>To receive a card, you need to fill out a form</p>
-}
-else
-{
+</div>    
     <h2 class="text-center"> Cards and bills:</h2>
     <p>Total cards: @Model.Length</p>
 
@@ -28,6 +21,5 @@ else
             <p style="font-size: xx-large"> Balance: @Model[i].CardBalance KGS </p>
         </div>
     }
-
-}
+<p><a href=/Home/CardAppForm>To receive a card, you need to fill out a form</a></p>
 

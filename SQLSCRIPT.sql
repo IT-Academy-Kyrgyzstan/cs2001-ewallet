@@ -37,3 +37,19 @@ CREATE TABLE CardAccounts
 	CONSTRAINT FK_CardAccounts_To_Users FOREIGN KEY (UserId)  REFERENCES Users (Id),
 	CONSTRAINT FK_CardAccounts_To_Statuses FOREIGN KEY (StatusId)  REFERENCES Statuses (Id)
 );
+GO
+
+CREATE TABLE CardOrders
+(
+	Id int PRIMARY KEY IDENTITY NOT NULL,
+	UserId int NOT NULL,
+	OperatorId int NULL,
+	NameCard nvarchar (30) NULL,
+	Сurrency smallint NOT NULL,
+	CardType smallint NOT NULL,
+	Status smallint NOT NULL,
+	Description nvarchar (100) NULL,
+	CreatedDate Date NOT NULL,
+	DecisionDate Date NULL,
+	FOREIGN KEY (UserId) REFERENCES AspNetUsers(Id)
+);

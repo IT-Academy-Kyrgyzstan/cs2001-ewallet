@@ -39,25 +39,22 @@ namespace Web.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         
-        public IActionResult FormApp()
+        public IActionResult CardAppForm()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> FormApp(FormAppViewModels model)
+        public async Task<IActionResult> CardAppForm(CardApplicationSM model)
         {
             if (ModelState.IsValid) 
             {
-                var user = await db.Users.FirstOrDefaultAsync(x => x.Id == UserId);
-                var nameCard = $"{user.FirstName} + {user.LastName} + {model.CardView}";
-
-                db.CardApplications.Add(new DataAccess.CardApplication
+                db.CardOrders.Add(new DataAccess.CardApplication
                 {
                     UserId = this.UserId,
-                    Сurruncy = model.Curruncy,
-                    CardView = model.CardView,
-                    Status = StatusesEnum.Considering,
+                    Сurrency = model.Currency,
+                    CardType = model.CardType,
+                    Status = CardStatus.Considering,
                     CreatedDate = DateTime.Now
 
                 });

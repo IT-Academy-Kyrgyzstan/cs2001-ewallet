@@ -1,0 +1,37 @@
+﻿@model Web.Models.CardApplicationSM
+
+@{
+    ViewData["Title"] = "Statement";
+}
+
+<div class="text-left">
+    <h1>Application for a payment card</h1>
+    <br />
+    <form asp-action="CardAppForm" asp-controller="Home" asp-anti-forgery="true">
+        <div class="form-group">
+            <div class="form-group">
+                <select asp-for="Currency" placeholder="Currency" asp-items="@Html.GetEnumSelectList(typeof(DataAccess.Enum.Currency))">
+                    <option>Choose currency </option>
+                </select>
+                <span asp-validation-for="Currency" />
+            </div>
+            <div class="form-group">
+                <select asp-for="CardType" placeholder="Currency" asp-items="@Html.GetEnumSelectList(typeof(DataAccess.Enum.CardType))">
+                    <option>Choose card type</option>
+                </select>
+                <span asp-validation-for="CardType" />
+            </div>
+
+            <div class="validation" asp-validation-summary="All"></div>
+            <div class="form-group">
+                <button>Send</button>
+            </div>
+        </div>
+    </form>
+</div>
+<style>
+    .validation {        
+        color: red
+    }
+</style>
+
