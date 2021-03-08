@@ -52,12 +52,12 @@ namespace Web.Controllers
                 var user = await db.Users.FirstOrDefaultAsync(x => x.Id == UserId);
                 var nameCard = $"{user.FirstName} + {user.LastName} + {model.CardView}";
 
-                db.CardApplications.Add(new DataAccess.CardApplication
+                db.CardOrders.Add(new DataAccess.CardApplication
                 {
                     UserId = this.UserId,
-                    Сurruncy = model.Curruncy,
-                    CardView = model.CardView,
-                    Status = StatusesEnum.Considering,
+                    Сurrency = model.Curruncy,
+                    CardType = model.CardView,
+                    Status = CardStatus.Considering,
                     CreatedDate = DateTime.Now
 
                 });

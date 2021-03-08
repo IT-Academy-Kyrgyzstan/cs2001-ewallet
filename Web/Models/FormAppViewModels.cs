@@ -12,8 +12,8 @@ namespace Web.Models
     public class FormAppViewModels
     {       
         [Display(Name = "Currency")]
-        public CurruncyEnum Curruncy { get; set; }
+        public Currency Curruncy { get; set; }
         [Display(Name = "Card view")]
-        public CardViewsEnum CardView { get; set; }
+        public CardType CardView { get; set; }
     }
 }

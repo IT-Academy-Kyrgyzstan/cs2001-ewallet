@@ -1,5 +1,5 @@
 ﻿@using DataAccess
-@model IEnumerable<CardApplication>
+@model IEnumerable<CardAppViewOperator>
 
 
 @{
@@ -8,7 +8,14 @@
 <div id="Bacc">
     @foreach (var item in Model)
     {
+       <d1> <p>@item.UserId</p>
+        <p>@item.NameCard</p>
         <p>@item.Status </p>
+        <p>@item.CardType</p>
+        <p>@item.Сurrency</p>
+        <p>@item.Description</p>
+        <p>@item.CreatedDate</p>
+        <p>@item.DecisionDate</p> </d1>
     }
 </div>
 

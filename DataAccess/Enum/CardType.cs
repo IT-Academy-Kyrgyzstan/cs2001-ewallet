@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataAccess.Enum
 {
-    public enum CardViewsEnum
+    public enum CardType
     {
         Elcard =1,
         Visa,

@@ -12,28 +12,15 @@ namespace DataAccess
         [Key]
         public int Id { get; set; }
         
-        [Required]
         public int UserId { get; set; }      
 
         public int OperatorId { get; set; }
 
-        [Required]
-        [MaxLength(30)]
         public string NameCard { get; set; }
-        
-        [Required]
-        public CurruncyEnum Сurruncy{ get; set; }
-        
-        [Required]
-        public CardViewsEnum CardView { get; set; }
-        
-        [Required]
-        public StatusesEnum Status { get; set; }
-
-        [MaxLength(100)]
+        public Currency Сurrency { get; set; }
+        public CardType CardType { get; set; }
+        public CardStatus Status { get; set; }
         public string Description { get; set; }
-        
-        [Required]
         public DateTime CreatedDate { get; set; }
 
         public DateTime DecisionDate { get; set; }       

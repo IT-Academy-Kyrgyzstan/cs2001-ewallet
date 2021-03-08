@@ -4,10 +4,9 @@ using System.Text;
 
 namespace DataAccess.Enum
 {
-    public enum StatusesEnum
+    public enum Currency
     {
-        Approved =1,
-        Considering,
-        Denied
+        KGS = 1        
     }
+    
 }
