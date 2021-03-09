@@ -59,7 +59,8 @@ namespace Web.Controllers
 
                 });
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                TempData["SuccessMessage"] = $"Application sent successfully";
+                return RedirectToAction("CardAppForm");
             }
                 return View(model);        
         }
