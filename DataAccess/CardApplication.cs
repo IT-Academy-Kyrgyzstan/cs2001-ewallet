@@ -19,7 +19,7 @@ namespace DataAccess
         public CardStatus Status { get; set; }
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime DecisionDate { get; set; }    
+        public DateTime? DecisionDate { get; set; }    
 
     }
 }
