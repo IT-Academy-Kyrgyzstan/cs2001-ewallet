@@ -1,4 +1,5 @@
 ﻿using DataAccess;
+using DataAccess.Enum;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -37,5 +38,32 @@ namespace Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        
+        public IActionResult CardAppForm()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CardAppForm(CardApplicationSM model)
+        {
+            if (ModelState.IsValid) 
+            {
+                db.CardOrders.Add(new DataAccess.CardApplication
+                {
+                    UserId = this.UserId,
+                    Сurrency = model.Currency,
+                    CardType = model.CardType,
+                    Status = CardStatus.Considering,
+                    CreatedDate = DateTime.Now
+
+                });
+                await db.SaveChangesAsync();
+                TempData["SuccessMessage"] = $"Application sent successfully";
+                return RedirectToAction("CardAppForm");
+            }
+                return View(model);        
+        }
+
     }
 }
