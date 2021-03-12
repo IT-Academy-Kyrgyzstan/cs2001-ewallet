@@ -1,0 +1,69 @@
+﻿@using DataAccess
+@using DataAccess.Enum
+@model IEnumerable<CardApplicationsOperatorVM>
+
+@{
+    ViewData["Title"] = "Applications for release";
+}
+<div>
+    <h1 class="text-center"><b>All applications for card issue</b></h1>
+    @foreach (var item in Model)
+    {
+        @if (@item.Status == CardStatus.Considering.ToString())
+        {
+            <div class="ConsideringBackground">
+                <p class="p">
+                    Sender Id: @item.UserId,
+                    Status: @item.Status,
+                    Card type: @item.CardType,
+                    Currency: @item.Сurrency
+                    <span class="float-right">Created date: @item.CreatedDate</span>
+                </p>
+            </div>
+        }
+        @if (@item.Status == CardStatus.Approved.ToString())
+        {
+            <div class="ApprovedBackground">
+                <p class="p">
+                    Sender Id: @item.UserId,
+                    Status: @item.Status,
+                    Card type: @item.CardType,
+                    Currency: @item.Сurrency
+                    <span class="float-right">Created date: @item.CreatedDate</span>
+                </p>
+            </div>
+        }
+        @if (@item.Status == CardStatus.Denied.ToString())
+        {
+            <div class="DeniedBackground">
+                <p class="p">
+                    Sender Id: @item.UserId,
+                    Status: @item.Status,
+                    Card type: @item.CardType,
+                    Currency: @item.Сurrency
+                    <span class="float-right">Created date: @item.CreatedDate</span>
+                </p>
+            </div>
+        }
+    }
+</div>
+
+<style>
+    .p {
+        font-size: 21px
+    }
+
+    .ConsideringBackground {
+        background-color: orange
+    }
+
+    .ApprovedBackground {
+        background-color: lawngreen
+    }
+
+    .DeniedBackground {
+        background-color: tomato
+    }
+</style>
+
+
