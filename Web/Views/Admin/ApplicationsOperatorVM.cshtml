@@ -11,11 +11,11 @@
     {
         @if (@item.Status == CardStatus.Considering.ToString())
         {
-            <div id="ConsideringBackground">
+            <div class="ConsideringBackground">
                 <p class="p">
                     Sender Id: @item.UserId,
                     Status: @item.Status,
-                    Card type:@item.CardType,
+                    Card type: @item.CardType,
                     Currency: @item.Сurrency
                     <span class="float-right">Created date: @item.CreatedDate</span>
                 </p>
@@ -23,11 +23,11 @@
         }
         @if (@item.Status == CardStatus.Approved.ToString())
         {
-            <div id="ApprovedBackground">
+            <div class="ApprovedBackground">
                 <p class="p">
                     Sender Id: @item.UserId,
                     Status: @item.Status,
-                    Card type:@item.CardType,
+                    Card type: @item.CardType,
                     Currency: @item.Сurrency
                     <span class="float-right">Created date: @item.CreatedDate</span>
                 </p>
@@ -35,11 +35,11 @@
         }
         @if (@item.Status == CardStatus.Denied.ToString())
         {
-            <div id="DeniedBackground">
+            <div class="DeniedBackground">
                 <p class="p">
                     Sender Id: @item.UserId,
                     Status: @item.Status,
-                    Card type:@item.CardType,
+                    Card type: @item.CardType,
                     Currency: @item.Сurrency
                     <span class="float-right">Created date: @item.CreatedDate</span>
                 </p>
@@ -53,15 +53,15 @@
         font-size: 21px
     }
 
-    #ConsideringBackground {
+    .ConsideringBackground {
         background-color: orange
     }
 
-    #ApprovedBackground {
+    .ApprovedBackground {
         background-color: lawngreen
     }
 
-    #DeniedBackground {
+    .DeniedBackground {
         background-color: tomato
     }
 </style>
