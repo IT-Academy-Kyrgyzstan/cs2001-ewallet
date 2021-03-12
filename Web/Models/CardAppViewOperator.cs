@@ -9,6 +9,7 @@ namespace Web.Models
 {
     public class CardAppViewOperator
     {
+        public int Id { get; set; }
         public int UserId { get; set; }
 
         public string OperatorId { get; set; }

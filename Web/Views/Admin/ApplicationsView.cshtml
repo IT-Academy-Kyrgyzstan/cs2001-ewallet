@@ -8,14 +8,18 @@
 <div id="Bacc">
     @foreach (var item in Model)
     {
-       <d1> <p>@item.UserId</p>
+        <div>
+            <a asp-action="DetailsApp" asp-controller="Admin" asp-route-id="@item.Id">Подробнее</a>
+            @*<input type="hidden" name="Id">
+            <a href='@Url.Action("DetailsApp", "Admin")'>Ссылка</a>*@
+        </div>
         <p>@item.NameCard</p>
         <p>@item.Status </p>
         <p>@item.CardType</p>
         <p>@item.Сurrency</p>
         <p>@item.Description</p>
         <p>@item.CreatedDate</p>
-        <p>@item.DecisionDate</p> </d1>
+        <p>@item.DecisionDate</p>
     }
 </div>
 

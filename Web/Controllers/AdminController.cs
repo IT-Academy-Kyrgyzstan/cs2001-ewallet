@@ -23,6 +23,7 @@ namespace Web.Controllers
                                select
                                (new CardAppViewOperator
                                {
+                                   Id = app.Id,
                                    UserId = app.UserId,
                                    OperatorId = app.OperatorId.ToString(),
                                    NameCard = app.NameCard,
@@ -37,6 +38,10 @@ namespace Web.Controllers
 
 
             return View(viewOperator);
+        }
+        public IActionResult DetailsApp(int? Id)
+        {
+            return View();
         }
     }
 }
